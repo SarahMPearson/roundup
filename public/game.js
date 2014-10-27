@@ -25,8 +25,8 @@ var level = (function(){
   function create(){
     game.physics.startSystem(Phaser.Physics.ARCADE);
 
-    var music = game.add.audio('music',1,true);
-    music.play('',0,1,true);
+    o.l.music = game.add.audio('music',1,true);
+    o.l.music.play('',0,1,true);
 
     o.l.bg = game.add.sprite(0, 0, 'sky');
     o.l.dog = game.add.sprite(30, 30, 'dog', 2);
@@ -57,13 +57,12 @@ var level = (function(){
     ledge = o.l.platforms.create(-100, 250, 'ground');
     ledge.body.immovable = true;
 
+    o.l.score = 0;
+    o.l.scoreText = game.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
+
     o.l.stars = game.add.group();
     o.l.stars.enableBody = true;
     o.l.stars.createMultiple(10, 'star');
-
-    o.l.diamonds = game.add.group();
-    o.l.diamonds.enableBody = true;
-    o.l.diamonds.createMultiple(10, 'star');
 
     o.l.stars.forEach(function(s){
       var x = Math.floor(Math.random() * 801 - 32),
@@ -83,8 +82,9 @@ var level = (function(){
     o.l.jumpSound = game.add.audio('jump');
     o.l.scoreSound = game.add.audio('score');
 
-    o.l.score = 0;
-
+    o.l.time = 30;
+    o.l.timeText = game.add.text(540, 16, 'Time: 30', { fontSize: '32px', fill: '#000' });
+    o.l.gameTimer = game.time.events.loop(1000, countDown, this);
   }
 
   function update(){
@@ -112,6 +112,8 @@ var level = (function(){
 
   function collectStar(dog, star){
     o.l.scoreSound.play();
+    o.l.score += 20;
+    o.l.scoreText.text = 'Score: ' + o.l.score;
     star.kill();
     var x = Math.floor(Math.random() * 801 - 32),
         y = Math.floor(Math.random() * 601 - 90);
@@ -122,7 +124,19 @@ var level = (function(){
 
   function collecDiamond(dog, diamond){
     o.l.scoreSound.play();
+    o.l.score += 40;
+    o.l.scoreText.text = 'Score: ' + o.l.score;
     diamond.kill();
+  }
+
+  function countDown(){
+    if(o.l.time > 0){
+      o.l.time -= 1;
+      o.l.timeText.text = 'Time: ' + o.l.time;
+    }else{
+      o.l.music.stop();
+      game.state.start('menu');
+    }
   }
   return o;
 })();
