@@ -11,6 +11,10 @@ var level = (function(){
     game.load.image('platform', 'assets/cloud.png');
     // game.load.spritesheet('platform', 'assets/cloud-platform.png', 16, 15);
 
+    game.load.spritesheet('button', 'assets/buttons/button_sprite_sheet.png', 193, 71);
+
+
+    game.load.image('sky', '/assets/sky.png');
   }
 
   function create(){
@@ -28,6 +32,8 @@ var level = (function(){
 
 
 
+    game.add.sprite(0, 0, 'sky');
+    
   }
 
   function update(){
