@@ -6,11 +6,11 @@ var menu = (function(){
   };
 
   function preload(){
-
+    game.load.image('sky', '/assets/sky.png');
   }
 
   function create(){
-
+    game.add.sprite(0, 0, 'sky');
   }
 
   function update(){
