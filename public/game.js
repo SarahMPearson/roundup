@@ -6,18 +6,24 @@ var level = (function(){
     update: update
   };
 
-  var platforms;
+  var platforms, music;
 
   function preload(){
-    game.load.image('ground', 'assets/platform.png');
+    game.load.image('ground', 'assets/ground.png');
     // game.load.spritesheet('platform', 'assets/cloud-platform.png', 16, 15);
     game.load.image('sky', '/assets/sky.png');
     game.load.image('cloud', '/assets/snow.png');
+    //load jump sound effect
+    game.load.audio('jump', 'assets/audio/flap.wav');
+    game.load.audio('music', 'assets/audio/CatAstroPhi_shmup_normal.wav');
     game.load.spritesheet('dog', '/assets/baddie.png', 32, 32);
   }
 
   function create(){
     game.physics.startSystem(Phaser.Physics.ARCADE);
+
+    music = game.add.audio('music',1,true);
+    music.play('',0,1,true);
 
     o.l.bg = game.add.sprite(0, 0, 'sky');
     o.l.dog = game.add.sprite(30, 30, 'dog', 2);
@@ -56,6 +62,8 @@ var level = (function(){
 
     ledge.body.immovable = true;
 
+    this.jumpSound = game.add.audio('jump');
+
   }
 
   function update(){
@@ -72,7 +80,9 @@ var level = (function(){
 
     if(o.l.cursors.up.isDown && o.l.dog.body.touching.down){
       o.l.dog.body.velocity.y = -350;
+      this.jumpSound.play();
     }
+
   }
 
   return o;
