@@ -7,9 +7,18 @@ var menu = (function(){
 
   function preload(){
 
+    game.load.spritesheet('button', 'assets/buttons/button_sprite_sheet.png', 193, 71);
+
+
   }
 
+var button;
+
   function create(){
+    
+
+    button = game.add.button(game.world.centerX - 95, 400, 'button', actionOnClick, this, 2, 1, 0);
+
 
   }
 
@@ -19,3 +28,9 @@ var menu = (function(){
 
   return o;
 })();
+
+function actionOnClick () {
+
+    background.visible =! background.visible;
+
+}
