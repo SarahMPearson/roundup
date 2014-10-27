@@ -15,9 +15,9 @@ var menu = (function(){
 var button;
 
   function create(){
-    
 
-    button = game.add.button(game.world.centerX - 95, 400, 'button', actionOnClick, this, 2, 1, 0);
+
+    button = game.add.button(game.world.centerX - 95, 400, 'button', startClick, this, 2, 1, 0);
 
 
   }
@@ -29,8 +29,8 @@ var button;
   return o;
 })();
 
-function actionOnClick () {
+function startClick () {
 
-    background.visible =! background.visible;
+    this.game.state.start('level');
 
 }
