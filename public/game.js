@@ -49,24 +49,12 @@ var level = (function(){
     ground.body.immovable = true;
 
     //  Now let's create two ledges
-    var ledge = o.l.platforms.create(300, 300, 'ground');
-
+    var ledge = o.l.platforms.create(400, 400, 'ground');
     ledge.body.immovable = true;
 
-    ledge = o.l.platforms.create(-150, 250, 'ground');
+    ledge = o.l.platforms.create(-150, 350, 'ground');
 
     ledge.body.immovable = true;
-
-    // ledge.scale.setTo();
-    ledge.angle = 180
-
-    // platforms = game.add.sprite(400,540, 'platform');
-    // platforms.scale.setTo(0.3);
-    // platforms.angle = 180
-    // platforms.enableBody = true;
-
-    // Here we create the ground.
-    // var ground = platforms.create(0, game.world.height - 64, 'platform');
 
   }
 
