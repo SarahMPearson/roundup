@@ -1,6 +1,6 @@
 var menu = (function(){
   var o = {
-    preload:, preload,
+    preload: preload,
     create: create,
     update: update
   };
