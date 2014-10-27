@@ -9,7 +9,7 @@ var level = (function(){
   var platforms;
 
   function preload(){
-    game.load.image('ground', '/assets/cloud.png');
+    game.load.image('ground', 'assets/platform.png');
     // game.load.spritesheet('platform', 'assets/cloud-platform.png', 16, 15);
     game.load.image('sky', '/assets/sky.png');
     game.load.image('cloud', '/assets/snow.png');
@@ -43,7 +43,7 @@ var level = (function(){
     var ground = o.l.platforms.create(0, game.world.height - 64, 'ground');
 
     //  Scale it to fit the width of the game (the original sprite is 400x32 in size)
-    ground.scale.setTo(0.6);
+    ground.scale.setTo(2,2);
 
     //  This stops it from falling away when you jump on it
     ground.body.immovable = true;
@@ -57,7 +57,7 @@ var level = (function(){
 
     ledge.body.immovable = true;
 
-    ledge.scale.setTo(0.3);
+    // ledge.scale.setTo();
     ledge.angle = 180
 
     // platforms = game.add.sprite(400,540, 'platform');
