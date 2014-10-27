@@ -14,6 +14,8 @@ var level = (function(){
     game.load.image('sky', '/assets/sky.png');
     game.load.image('cloud', '/assets/snow.png');
     game.load.spritesheet('dog', '/assets/baddie.png', 32, 32);
+    game.load.image('star', '/assets/star.png');
+    game.load.image('diamond', '/assets/diamond.png');
   }
 
   function create(){
@@ -33,33 +35,51 @@ var level = (function(){
 
     o.l.cursors = game.input.keyboard.createCursorKeys();
 
-    //cloud platform
-    //  The platforms group contains the ground and the 2 ledges we can jump on
     o.l.platforms = game.add.group();
     o.l.platforms.enableBody = true;
 
-    // platforms.angle = 180
-    // Here we create the ground.
     var ground = o.l.platforms.create(0, game.world.height - 64, 'ground');
 
     //  Scale it to fit the width of the game (the original sprite is 400x32 in size)
     ground.scale.setTo(2,2);
-
-    //  This stops it from falling away when you jump on it
     ground.body.immovable = true;
 
     //  Now let's create two ledges
     var ledge = o.l.platforms.create(400, 400, 'ground');
     ledge.body.immovable = true;
-
-    ledge = o.l.platforms.create(-150, 350, 'ground');
-
+    ledge = o.l.platforms.create(-100, 250, 'ground');
     ledge.body.immovable = true;
 
+    o.l.stars = game.add.group();
+    o.l.stars.enableBody = true;
+    o.l.stars.createMultiple(10, 'star');
+
+    o.l.diamonds = game.add.group();
+    o.l.diamonds.enableBody = true;
+    o.l.diamonds.createMultiple(10, 'star');
+
+    o.l.stars.forEach(function(s){
+      var x = Math.floor(Math.random() * 801 - 32),
+          y = Math.floor(Math.random() * 601 - 90);
+      s.reset(x, y);
+      s.body.gravity.y = 100;
+      var tween = game.add.tween(s).to({ x: s.x + 100 }, 1000, Phaser.Easing.Linear.None)
+      .to({ x: s.x - 100 }, 1000, Phaser.Easing.Linear.None)
+      .loop()
+      .start();
+
+    });
+
+    o.l.emitter = game.add.emitter(0, 0, 100);
+    o.l.emitter.makeParticles('diamond');
   }
 
   function update(){
     game.physics.arcade.collide(o.l.dog, o.l.platforms);
+    game.physics.arcade.collide(o.l.stars, o.l.platforms);
+    game.physics.arcade.overlap(o.l.dog, o.l.stars, collectStar, null, this);
+    game.physics.arcade.overlap(o.l.dog, o.l.emitter, collecDiamond, null, this);
+
     o.l.dog.body.velocity.x = 0;
 
     if(o.l.cursors.left.isDown){
@@ -75,5 +95,17 @@ var level = (function(){
     }
   }
 
+  function collectStar(dog, star){
+    star.kill();
+    var x = Math.floor(Math.random() * 801 - 32),
+        y = Math.floor(Math.random() * 601 - 90);
+    o.l.emitter.x = x;
+    o.l.emitter.y = y;
+    o.l.emitter.start(true, 2000, null, 10);
+  }
+
+  function collecDiamond(dog, diamond){
+    diamond.kill();
+  }
   return o;
 })();
