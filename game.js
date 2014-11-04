@@ -9,15 +9,15 @@ var level = (function(){
   var platforms, music;
 
   function preload(){
-    game.load.image('ground', '/assets/ground.png');
-    game.load.image('sky', '/assets/sky.png');
+    game.load.image('ground', 'assets/ground.png');
+    game.load.image('sky', 'assets/sky.png');
     //load jump sound effect
     game.load.audio('jump', 'assets/audio/flap.wav');
     game.load.audio('music', 'assets/audio/CatAstroPhi_shmup_normal.wav');
-    game.load.audio('score', '/assets/audio/score.wav');
-    game.load.spritesheet('dog', '/assets/dog.png', 32, 32);
-    game.load.image('star', '/assets/star.png');
-    game.load.image('diamond', '/assets/diamond.png');
+    game.load.audio('score', 'assets/audio/score.wav');
+    game.load.spritesheet('dog', 'assets/dog.png', 32, 32);
+    game.load.image('star', 'assets/star.png');
+    game.load.image('diamond', 'assets/diamond.png');
   }
 
   function create(){
